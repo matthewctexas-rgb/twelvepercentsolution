@@ -101,9 +101,11 @@
         </div>
       </div>
       
+      <!-- TOP TOOLBAR NAVIGATION SECTIONS (Ordered Strategy rules, Live ETF Performance, Interactive Backtest) -->
       <div class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+        <a href="#mechanics" class="hover:text-brand-500 transition-colors font-medium">Strategy rules</a>
+        <a href="#live-etf-performance" class="hover:text-brand-500 transition-colors font-medium">Live ETF Performance</a>
         <a href="#backtester" class="hover:text-brand-500 transition-colors font-medium">Interactive Backtest</a>
-        <a href="#mechanics" class="hover:text-brand-500 transition-colors font-medium">Strategy Rules</a>
         <a href="https://www.amazon.com/dp/197468136X" target="_blank" class="hover:text-brand-500 transition-colors text-xs bg-slate-800 px-3 py-1 rounded-full border border-slate-700 font-medium">
           <i class="fa-brands fa-amazon mr-1"></i> Carter's Book
         </a>
@@ -210,7 +212,7 @@
     </section>
 
     <!-- DETAILED EXPLANATORY CARDS OF STRATEGY MECHANICS -->
-    <section id="mechanics" class="mb-12">
+    <section id="mechanics" class="mb-12 scroll-mt-20">
       <div class="text-center max-w-3xl mx-auto mb-12">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white">How does the 12% Solution Work?</h2>
         <p class="text-slate-400 text-sm mt-2">
@@ -279,83 +281,148 @@
       </div>
     </section>
 
-    <!-- PAST 3-MONTH DYNAMIC PERFORMANCE GRAPH -->
-    <section id="momentum-growth-chart" class="mb-12 bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-sm relative">
+    <!-- WRAPPER SECTION FOR BOTH PERFORMANCE CHARTS TO TARGET SMOOTH SCROLLS -->
+    <div id="live-etf-performance" class="scroll-mt-20">
       
-      <!-- General Loading Shield -->
-      <div id="chart-loading-overlay" class="absolute inset-0 bg-slate-950/80 z-20 rounded-3xl flex flex-col items-center justify-center gap-3">
-        <i class="fa-solid fa-circle-notch animate-spin text-brand-500 text-3xl"></i>
-        <p class="text-sm font-semibold font-mono text-slate-300">Downloading Live ETF Market Feeds...</p>
-      </div>
+      <!-- PAST 3-MONTH DYNAMIC PERFORMANCE GRAPH -->
+      <section id="momentum-growth-chart" class="mb-12 bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-sm relative font-sans">
+        
+        <!-- General Loading Shield -->
+        <div id="chart-loading-overlay" class="absolute inset-0 bg-slate-950/80 z-20 rounded-3xl flex flex-col items-center justify-center gap-3">
+          <i class="fa-solid fa-circle-notch animate-spin text-brand-500 text-3xl"></i>
+          <p class="text-sm font-semibold font-mono text-slate-300">Downloading Live ETF Market Feeds...</p>
+        </div>
 
-      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div>
-          <h3 class="text-xl font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-chart-line text-brand-500"></i>
-            Rotational Index Performance (Past 3 Months)
-          </h3>
-          <p class="text-xs text-slate-400">Comparing real percent growth of key rotational ETFs over the last 90 trading days</p>
-        </div>
-        <div id="badge-data-type" class="text-xs font-mono bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
-          <span>Offline Data Mode</span>
-        </div>
-      </div>
-
-      <!-- Canvas container utilizing modern layout boundaries -->
-      <div class="relative bg-slate-950 rounded-2xl border border-slate-800/80 p-4 h-[350px]">
-        <canvas id="etfComparisonChart"></canvas>
-      </div>
-
-      <!-- FIVE ETFS PERCENT GROWTH ROW -->
-      <div class="mt-6 p-4 bg-slate-950 rounded-2xl border border-slate-800/80 flex flex-wrap items-center justify-around gap-4 text-xs font-mono">
-        <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
-          <span class="text-slate-300 font-bold">QQQ:</span>
-          <span id="rate-qqq" class="text-brand-500 font-extrabold">+23.85%</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#3b82f6]"></span>
-          <span class="text-slate-300 font-bold">IWM:</span>
-          <span id="rate-iwm" class="text-[#3b82f6] font-extrabold">+20.05%</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#a855f7]"></span>
-          <span class="text-slate-300 font-bold">SPY:</span>
-          <span id="rate-spy" class="text-[#a855f7] font-extrabold">+14.12%</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span>
-          <span class="text-slate-300 font-bold">MDY:</span>
-          <span id="rate-mdy" class="text-[#f59e0b] font-extrabold">+13.19%</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
-          <span class="text-slate-300 font-bold">SHY:</span>
-          <span id="rate-shy" class="text-[#ef4444] font-extrabold">-0.48%</span>
-        </div>
-      </div>
-
-      <!-- Winner Designation Box -->
-      <div class="mt-4 p-4 rounded-xl bg-brand-950/30 border border-brand-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 text-lg">
-            <i class="fa-solid fa-trophy"></i>
-          </div>
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div>
-            <h4 class="text-sm font-bold text-white">Current Momentum Allocation Winner</h4>
-            <p class="text-xs text-slate-400">Identified dynamically based on cumulative performance over the trailing 3-month window</p>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-line text-brand-500"></i>
+              Rotational Index Performance (Past 3 Months)
+            </h3>
+            <p class="text-xs text-slate-400">Comparing real percent growth of key rotational ETFs over the last 90 calendar days</p>
+          </div>
+          <div id="badge-data-type" class="text-xs font-mono bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+            <span>Offline Data Mode</span>
           </div>
         </div>
-        <div class="text-center sm:text-right">
-          <span id="winner-ticker" class="bg-brand-500 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest font-mono">QQQ</span>
-          <span id="winner-rate" class="text-brand-500 font-mono font-bold text-sm block mt-1.5">+23.85% Growth</span>
+
+        <!-- Canvas container utilizing modern layout boundaries -->
+        <div class="relative bg-slate-950 rounded-2xl border border-slate-800/80 p-4 h-[350px]">
+          <canvas id="etfComparisonChart"></canvas>
         </div>
-      </div>
-    </section>
+
+        <!-- FIVE ETFS PERCENT GROWTH ROW -->
+        <div class="mt-6 p-4 bg-slate-950 rounded-2xl border border-slate-800/80 flex flex-wrap items-center justify-around gap-4 text-xs font-mono">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+            <span class="text-slate-300 font-bold">QQQ:</span>
+            <span id="rate-qqq" class="text-brand-500 font-extrabold">+23.85%</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#3b82f6]"></span>
+            <span class="text-slate-300 font-bold">IWM:</span>
+            <span id="rate-iwm" class="text-[#3b82f6] font-extrabold">+20.05%</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#a855f7]"></span>
+            <span class="text-slate-300 font-bold">SPY:</span>
+            <span id="rate-spy" class="text-[#a855f7] font-extrabold">+14.12%</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b]"></span>
+            <span class="text-slate-300 font-bold">MDY:</span>
+            <span id="rate-mdy" class="text-[#f59e0b] font-extrabold">+13.19%</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]"></span>
+            <span class="text-slate-300 font-bold">SHY:</span>
+            <span id="rate-shy" class="text-[#ef4444] font-extrabold">-0.48%</span>
+          </div>
+        </div>
+
+        <!-- Winner Designation Box -->
+        <div class="mt-4 p-4 rounded-xl bg-brand-950/30 border border-brand-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 text-lg">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Current Momentum Allocation Winner</h4>
+              <p class="text-xs text-slate-400">Identified dynamically based on cumulative performance over the trailing 3-month window</p>
+            </div>
+          </div>
+          <div class="text-center sm:text-right">
+            <span id="winner-ticker" class="bg-brand-500 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest font-mono">QQQ</span>
+            <span id="winner-rate" class="text-brand-500 font-mono font-bold text-sm block mt-1.5">+23.85% Growth</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAST 3-MONTH DYNAMIC BOND ALLOCATION GRAPH -->
+      <section id="bond-growth-chart" class="mb-12 bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-sm relative font-sans">
+        
+        <!-- Bond Loading Shield -->
+        <div id="bond-chart-loading-overlay" class="absolute inset-0 bg-slate-950/80 z-20 rounded-3xl flex flex-col items-center justify-center gap-3">
+          <i class="fa-solid fa-circle-notch animate-spin text-brand-500 text-3xl"></i>
+          <p class="text-sm font-semibold font-mono text-slate-300">Processing Live Bond Feeds...</p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-vault text-brand-500"></i>
+              Bond Allocation Performance (Past 3 Months)
+            </h3>
+            <p class="text-xs text-slate-400">Comparing real percent growth of defensive bond selection ETFs over the last 90 calendar days</p>
+          </div>
+          <div id="bond-badge-data-type" class="text-xs font-mono bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+            <span>Offline Data Mode</span>
+          </div>
+        </div>
+
+        <!-- Canvas container utilizing same size and boundaries -->
+        <div class="relative bg-slate-950 rounded-2xl border border-slate-800/80 p-4 h-[350px]">
+          <canvas id="bondComparisonChart"></canvas>
+        </div>
+
+        <!-- TWO BOND ETFS PERCENT GROWTH ROW -->
+        <div class="mt-6 p-4 bg-slate-950 rounded-2xl border border-slate-800/80 flex flex-wrap items-center justify-around gap-4 text-xs font-mono">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#6366f1]"></span>
+            <span class="text-slate-300 font-bold">TLT:</span>
+            <span id="rate-tlt" class="text-[#6366f1] font-extrabold">+3.12%</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e]"></span>
+            <span class="text-slate-300 font-bold">JNK:</span>
+            <span id="rate-jnk" class="text-[#f43f5e] font-extrabold">+1.62%</span>
+          </div>
+        </div>
+
+        <!-- Bond Winner Designation Box -->
+        <div class="mt-4 p-4 rounded-xl bg-brand-950/30 border border-brand-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 text-lg">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Current Bond Allocation Winner</h4>
+              <p class="text-xs text-slate-400">Identified dynamically based on cumulative performance over the trailing 3-month window</p>
+            </div>
+          </div>
+          <div class="text-center sm:text-right">
+            <span id="bond-winner-ticker" class="bg-brand-500 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest font-mono">TLT</span>
+            <span id="bond-winner-rate" class="text-brand-500 font-mono font-bold text-sm block mt-1.5">+3.12% Growth</span>
+          </div>
+        </div>
+      </section>
+      
+    </div>
 
     <!-- CORE INTERACTIVE SANDBOX & BACKTESTER -->
-    <section id="backtester" class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+    <section id="backtester" class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 scroll-mt-20">
       
       <!-- Control Panel (Left Side - 4 Cols) -->
       <div class="lg:col-span-4 flex flex-col gap-6">
@@ -450,25 +517,13 @@
               
               <!-- Tab Controls -->
               <div class="flex bg-slate-950 border border-slate-800 p-1 rounded-xl">
-                <button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-500 text-slate-950 transition-colors">Performance</button>
-                <button class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-colors">Risk Metrics</button>
+                <button class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-500 text-slate-950 transition-colors font-sans">Performance</button>
+                <button class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-colors font-sans">Risk Metrics</button>
               </div>
             </div>
 
             <!-- Dynamic Simulator Canvas -->
             <div class="relative bg-slate-950 rounded-2xl border border-slate-800/80 p-4 min-h-[300px] flex flex-col justify-between overflow-hidden">
-              <!-- Visual Indicator on Chart -->
-              <div class="absolute top-4 right-4 flex items-center gap-4 text-xs font-mono">
-                <div class="flex items-center gap-1.5">
-                  <span class="w-3 h-1.5 rounded bg-brand-500 inline-block"></span>
-                  <span class="text-slate-300">12% Strategy</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="w-3 h-1.5 rounded bg-slate-600 inline-block"></span>
-                  <span class="text-slate-400">S&P 500 Buy & Hold</span>
-                </div>
-              </div>
-
               <!-- Simulator Loading / Progress Terminal State -->
               <div id="simulation-loading" class="hidden absolute inset-0 bg-slate-950/90 z-20 flex flex-col items-center justify-center gap-4">
                 <div class="flex items-center gap-2">
@@ -481,38 +536,25 @@
               </div>
 
               <!-- Main Canvas Layout for the Simulated Graph -->
-              <div class="w-full flex-1 flex items-end pt-12 pb-4">
-                <canvas id="simulationChart" class="w-full h-[220px]"></canvas>
-              </div>
-
-              <!-- X Axis Labels -->
-              <div id="sim-xaxis" class="flex justify-between text-[10px] text-slate-500 font-mono border-t border-slate-900 pt-2 px-1">
-                <span>12 Months Ago</span>
-                <span>9 Months Ago</span>
-                <span>6 Months Ago</span>
-                <span>3 Months Ago</span>
-                <span>Today</span>
+              <div class="relative w-full h-[230px] mt-8 flex-1">
+                <canvas id="simulationChart"></canvas>
               </div>
             </div>
           </div>
 
-          <!-- Bottom Stat Aggregators -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-slate-800">
-            <div>
-              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-mono">Starting Capital</span>
-              <p class="text-md sm:text-lg font-bold text-white font-mono mt-0.5">$10,000</p>
-            </div>
+          <!-- Bottom Stat Aggregators (Starting Capital deleted, 3-column structured grid) -->
+          <div class="grid grid-cols-3 gap-2 sm:gap-4 mt-6 pt-6 border-t border-slate-800">
             <div>
               <span class="text-[10px] uppercase tracking-wider text-slate-400 font-mono">CAGR (Simulated)</span>
-              <p id="stat-cagr" class="text-md sm:text-lg font-bold text-brand-500 font-mono mt-0.5">+12.44%</p>
+              <p id="stat-cagr" class="text-md sm:text-lg font-bold text-brand-500 font-mono mt-0.5">+85.00%</p>
             </div>
             <div>
               <span class="text-[10px] uppercase tracking-wider text-slate-400 font-mono">Max Drawdown</span>
               <p id="stat-drawdown" class="text-md sm:text-lg font-bold text-emerald-400 font-mono mt-0.5">-8.92%</p>
             </div>
             <div>
-              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-mono">Outperformance</span>
-              <p id="stat-outperform" class="text-md sm:text-lg font-bold text-white font-mono mt-0.5">Beat Market</p>
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-mono">Performance</span>
+              <p id="stat-outperform" class="text-[10px] sm:text-xs md:text-sm font-bold text-brand-500 font-mono mt-1">Beat S&P 500 by 55.00%</p>
             </div>
           </div>
         </div>
@@ -566,7 +608,6 @@
           <i class="fa-solid fa-scale-balanced"></i>
         </div>
         <div>
-          <span class="font-bold text-slate-400 block">TwelvePercent Momentum Suite</span>
           <span>Informed by David Alan Carter's original publishing works.</span>
         </div>
       </div>
@@ -575,10 +616,6 @@
         <a href="#overview" class="hover:text-white transition-colors">Terms of Use</a>
         <a href="#overview" class="hover:text-white transition-colors">Disclaimer Policy</a>
         <a href="#overview" class="hover:text-white transition-colors">Privacy Principles</a>
-      </div>
-
-      <div class="text-center md:text-right">
-        <span>© 2026 TwelvePercent Research Platform. All Rights Reserved.</span>
       </div>
     </div>
   </footer>
@@ -590,6 +627,7 @@
       document.getElementById(id).innerText = value;
     }
 
+    // Allocation updates helper
     function updateSplitVal(value) {
       const equity = parseInt(value);
       const bonds = 100 - equity;
@@ -597,15 +635,21 @@
     }
 
     // High Fidelity Fallback Dataset (In case of CORS API throttle or Offline status)
+    // Structured to represent exactly 3 months spaced weekly for cleaner testing using numerical month/day/year abbreviations
     const fallbackSeries = {
-      dates: ['Mar 18, 2026', 'Apr 01, 2026', 'Apr 15, 2026', 'May 01, 2026', 'May 15, 2026', 'Jun 01, 2026', 'Jun 17, 2026'],
-      QQQ: [0.0, 5.21, 10.33, 15.11, 19.31, 22.80, 23.85],
-      IWM: [0.0, 2.15, 8.52, 12.91, 12.82, 16.70, 20.05],
-      SPY: [0.0, 3.42, 4.02, 7.51, 11.72, 13.10, 14.12],
-      MDY: [0.0, 1.81, 5.51, 7.82, 7.11, 9.42, 13.19],
-      SHY: [0.0, -0.05, -0.12, -0.22, -0.54, -0.30, -0.48],
-      TLT: [0.0, 1.10, -0.45, 1.25, 2.45, 1.90, 3.12],
-      JNK: [0.0, 0.45, 0.95, 1.10, 0.85, 1.25, 1.62]
+      dates: [
+        '3/18/26', '3/25/26', '4/1/26', '4/8/26', 
+        '4/15/26', '4/22/26', '4/29/26', '5/6/26', 
+        '5/13/26', '5/20/26', '5/27/26', '6/3/26', 
+        '6/10/26', '6/17/26'
+      ],
+      QQQ: [0.0, 1.82, 5.21, 7.15, 10.33, 12.80, 15.11, 16.45, 19.31, 21.10, 22.80, 23.40, 23.65, 23.85],
+      IWM: [0.0, 0.95, 2.15, 5.40, 8.52, 11.10, 12.91, 12.20, 12.82, 14.50, 16.70, 17.85, 18.90, 20.05],
+      SPY: [0.0, 1.12, 3.42, 3.80, 4.02, 5.95, 7.51, 9.80, 11.72, 12.40, 13.10, 13.55, 13.90, 14.12],
+      MDY: [0.0, 0.80, 1.81, 3.90, 5.51, 6.40, 7.82, 7.30, 7.11, 8.50, 9.42, 10.80, 12.10, 13.19],
+      SHY: [0.0, -0.02, -0.05, -0.08, -0.12, -0.18, -0.22, -0.35, -0.54, -0.45, -0.30, -0.35, -0.42, -0.48],
+      TLT: [0.0, 0.40, 1.10, 0.15, -0.45, 0.80, 1.25, 1.90, 2.45, 2.10, 1.90, 2.25, 2.80, 3.12],
+      JNK: [0.0, 0.20, 0.45, 0.70, 0.95, 1.05, 1.10, 0.95, 0.85, 1.05, 1.25, 1.40, 1.55, 1.62]
     };
 
     // Target API Symbol Portfolio Array
@@ -616,7 +660,9 @@
     // Fetch dynamic live ETF historical daily data directly on boot
     async function loadLiveFinancialFeed() {
       const loader = document.getElementById('chart-loading-overlay');
+      const bondLoader = document.getElementById('bond-chart-loading-overlay');
       const badge = document.getElementById('badge-data-type');
+      const bondBadge = document.getElementById('bond-badge-data-type');
       const statusPing = document.getElementById('status-ping');
       const statusText = document.getElementById('status-text');
 
@@ -651,7 +697,10 @@
         }
 
         isLiveFeed = true;
-        badge.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse"></span><span>Live Market Data</span>`;
+        const liveBadgeHTML = `<span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-pulse"></span><span>Live Market Data</span>`;
+        badge.innerHTML = liveBadgeHTML;
+        bondBadge.innerHTML = liveBadgeHTML;
+        
         statusPing.className = "w-2.5 h-2.5 rounded-full bg-brand-500 animate-ping";
         statusText.innerText = "System Active & Live";
         statusText.className = "text-brand-500 font-semibold";
@@ -660,13 +709,17 @@
       } catch (err) {
         console.warn('Live API connection timed out. Falling back to built-in simulation dataset.', err);
         isLiveFeed = false;
-        badge.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Offline / Demo Mode</span>`;
+        const fallbackBadgeHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Offline / Demo Mode</span>`;
+        badge.innerHTML = fallbackBadgeHTML;
+        bondBadge.innerHTML = fallbackBadgeHTML;
+        
         statusPing.className = "w-2.5 h-2.5 rounded-full bg-amber-500";
         statusText.innerText = "Demo Session Running";
         
         processFallbackMetrics();
       } finally {
         if (loader) loader.classList.add('hidden');
+        if (bondLoader) bondLoader.classList.add('hidden');
         buildDynamicLogTable();
         // Trigger initial simulation curves on page load
         triggerSimulation();
@@ -675,22 +728,35 @@
 
     // Process Live Yahoo Finance API dataset inside comparison chart
     let chartInstance = null;
+    let bondChartInstance = null;
+    let simulationChartInstance = null;
+    
     function processLiveMetrics() {
-      // Find the base index from 3 months (90 days) ago
-      const refIdx = {};
+      const spySeries = loadedData['SPY'];
+      if (!spySeries || spySeries.length === 0) return;
+
+      const latestTime = spySeries[spySeries.length - 1].time;
+      // ALWAYS calculate exactly the last 3 calendar months (approx. 90 days in milliseconds)
+      const threeMonthsAgo = latestTime - (90 * 24 * 60 * 60 * 1000);
+
+      // Find the index of the first data point that is >= threeMonthsAgo
+      let startIdx = 0;
+      for (let i = 0; i < spySeries.length; i++) {
+        if (spySeries[i].time >= threeMonthsAgo) {
+          startIdx = i;
+          break;
+        }
+      }
+
       const dates = [];
       const QQQ_perf = [], IWM_perf = [], SPY_perf = [], MDY_perf = [], SHY_perf = [];
-
-      // Align dates of S&P 500 (SPY) for the past 90 trading days
-      const spySeries = loadedData['SPY'];
-      const dataPointsCount = Math.min(90, spySeries.length);
-      const startIdx = spySeries.length - dataPointsCount;
+      const TLT_perf = [], JNK_perf = [];
       const baseTime = spySeries[startIdx].time;
 
-      // Extract bases
+      // Extract accurate baseline values for baseTime
+      const refIdx = {};
       SYMBOLS.forEach(sym => {
         const series = loadedData[sym];
-        // find closest entry to baseTime
         let closest = series[0];
         let minDiff = Math.abs(series[0].time - baseTime);
         series.forEach(pt => {
@@ -703,20 +769,29 @@
         refIdx[sym] = closest.close;
       });
 
-      // Calculate trailing percent gains re-based to 0%
+      // Calculate trailing percent gains re-based to 0% at exactly start index
       for (let i = startIdx; i < spySeries.length; i++) {
         const t = spySeries[i].time;
-        dates.push(new Date(t).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+        
+        // Format strictly in numerical style: M/D/YY (with year 2026 abbreviated to 26)
+        const d = new Date(t);
+        const mm = d.getMonth() + 1;
+        const dd = d.getDate();
+        const yy = String(d.getFullYear()).slice(-2);
+        dates.push(`${mm}/${dd}/${yy}`);
 
-        // Safe fetch relative points for each ETF
         QQQ_perf.push(calculateGainPercent('QQQ', t, refIdx['QQQ']));
         IWM_perf.push(calculateGainPercent('IWM', t, refIdx['IWM']));
         SPY_perf.push(calculateGainPercent('SPY', t, refIdx['SPY']));
         MDY_perf.push(calculateGainPercent('MDY', t, refIdx['MDY']));
         SHY_perf.push(calculateGainPercent('SHY', t, refIdx['SHY']));
+        
+        TLT_perf.push(calculateGainPercent('TLT', t, refIdx['TLT']));
+        JNK_perf.push(calculateGainPercent('JNK', t, refIdx['JNK']));
       }
 
       renderMainComparisonChart(dates, QQQ_perf, IWM_perf, SPY_perf, MDY_perf, SHY_perf);
+      renderBondComparisonChart(dates, TLT_perf, JNK_perf);
 
       // Extract final returns
       const f_qqq = QQQ_perf[QQQ_perf.length - 1];
@@ -724,9 +799,15 @@
       const f_spy = SPY_perf[SPY_perf.length - 1];
       const f_mdy = MDY_perf[MDY_perf.length - 1];
       const f_shy = SHY_perf[SHY_perf.length - 1];
+      
+      const f_tlt = TLT_perf[TLT_perf.length - 1];
+      const f_jnk = JNK_perf[JNK_perf.length - 1];
 
       updateInlinePerformanceRow(f_qqq, f_iwm, f_spy, f_mdy, f_shy);
+      updateInlineBondRow(f_tlt, f_jnk);
+      
       identifyMomentumWinner(f_qqq, f_iwm, f_spy, f_mdy, f_shy);
+      identifyBondWinner(f_tlt, f_jnk);
     }
 
     function calculateGainPercent(symbol, timestamp, baseVal) {
@@ -754,14 +835,26 @@
         fallbackSeries.SHY
       );
 
+      renderBondComparisonChart(
+        fallbackSeries.dates,
+        fallbackSeries.TLT,
+        fallbackSeries.JNK
+      );
+
       const f_qqq = fallbackSeries.QQQ[fallbackSeries.QQQ.length - 1];
       const f_iwm = fallbackSeries.IWM[fallbackSeries.IWM.length - 1];
       const f_spy = fallbackSeries.SPY[fallbackSeries.SPY.length - 1];
       const f_mdy = fallbackSeries.MDY[fallbackSeries.MDY.length - 1];
       const f_shy = fallbackSeries.SHY[fallbackSeries.SHY.length - 1];
+      
+      const f_tlt = fallbackSeries.TLT[fallbackSeries.TLT.length - 1];
+      const f_jnk = fallbackSeries.JNK[fallbackSeries.JNK.length - 1];
 
       updateInlinePerformanceRow(f_qqq, f_iwm, f_spy, f_mdy, f_shy);
+      updateInlineBondRow(f_tlt, f_jnk);
+      
       identifyMomentumWinner(f_qqq, f_iwm, f_spy, f_mdy, f_shy);
+      identifyBondWinner(f_tlt, f_jnk);
     }
 
     // Dynamic label rendering for the inline performance values
@@ -771,6 +864,12 @@
       document.getElementById('rate-spy').innerText = `${spy >= 0 ? '+' : ''}${spy.toFixed(2)}%`;
       document.getElementById('rate-mdy').innerText = `${mdy >= 0 ? '+' : ''}${mdy.toFixed(2)}%`;
       document.getElementById('rate-shy').innerText = `${shy >= 0 ? '+' : ''}${shy.toFixed(2)}%`;
+    }
+
+    // Dynamic label rendering for inline bond values
+    function updateInlineBondRow(tlt, jnk) {
+      document.getElementById('rate-tlt').innerText = `${tlt >= 0 ? '+' : ''}${tlt.toFixed(2)}%`;
+      document.getElementById('rate-jnk').innerText = `${jnk >= 0 ? '+' : ''}${jnk.toFixed(2)}%`;
     }
 
     // Automatically determine tactical winner (Abbreviation Only)
@@ -790,9 +889,19 @@
       document.getElementById('winner-rate').innerText = `${maxReturn >= 0 ? '+' : ''}${maxReturn.toFixed(2)}% Growth`;
     }
 
+    // Automatically determine bond winner
+    function identifyBondWinner(tlt, jnk) {
+      const winner = tlt >= jnk ? 'TLT' : 'JNK';
+      const maxReturn = Math.max(tlt, jnk);
+
+      document.getElementById('bond-winner-ticker').innerText = winner;
+      document.getElementById('bond-winner-rate').innerText = `${maxReturn >= 0 ? '+' : ''}${maxReturn.toFixed(2)}% Growth`;
+    }
+
     // Build Trailing Rotational Table logs dynamically
     function buildDynamicLogTable() {
       const tableBody = document.getElementById('allocation-table-body');
+      if (!tableBody) return;
       tableBody.innerHTML = '';
 
       const rowsData = [
@@ -803,7 +912,6 @@
         { date: 'Feb 28, 2026', eq: 'SHY', eqRet: -0.15, bd: 'JNK', bdRet: 1.12, port: 0.35 }
       ];
 
-      // If live feed is active, pull realistic variation weights
       rowsData.forEach(row => {
         const isCash = row.eq === 'SHY';
         const eqClass = isCash ? 'bg-amber-900/40 border border-amber-500/30 text-amber-500' : 'bg-brand-900/40 border border-brand-500/30 text-brand-400';
@@ -822,7 +930,7 @@
       });
     }
 
-    // Chart.js Generator Engine
+    // Chart.js Generator Engine - Index Comparison
     function renderMainComparisonChart(dates, qqq, iwm, spy, mdy, shy) {
       if (chartInstance) chartInstance.destroy();
       
@@ -833,7 +941,7 @@
           labels: dates,
           datasets: [
             {
-              label: 'QQQ',
+              label: 'Nasdaq 100 (QQQ)',
               data: qqq,
               borderColor: '#10b981',
               backgroundColor: 'rgba(16, 185, 129, 0.05)',
@@ -844,7 +952,7 @@
               pointBackgroundColor: '#10b981'
             },
             {
-              label: 'IWM',
+              label: 'Russell 2000 (IWM)',
               data: iwm,
               borderColor: '#3b82f6',
               backgroundColor: 'transparent',
@@ -854,7 +962,7 @@
               pointBackgroundColor: '#3b82f6'
             },
             {
-              label: 'SPY',
+              label: 'S&P 500 (SPY)',
               data: spy,
               borderColor: '#a855f7',
               backgroundColor: 'transparent',
@@ -864,7 +972,7 @@
               pointBackgroundColor: '#a855f7'
             },
             {
-              label: 'MDY',
+              label: 'MidCap 400 (MDY)',
               data: mdy,
               borderColor: '#f59e0b',
               backgroundColor: 'transparent',
@@ -874,7 +982,7 @@
               pointBackgroundColor: '#f59e0b'
             },
             {
-              label: 'SHY',
+              label: 'Cash Proxy (SHY)',
               data: shy,
               borderColor: '#ef4444',
               backgroundColor: 'transparent',
@@ -913,11 +1021,21 @@
           },
           scales: {
             x: {
-              grid: { color: 'rgba(255, 255, 255, 0.03)' },
-              ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 10 } }
+              grid: { color: 'rgba(255, 255, 255, 0.15)' }, // Highly noticeable grid lines
+              ticks: {
+                color: '#94a3b8',
+                font: { family: 'JetBrains Mono', size: 10 },
+                autoSkip: false,
+                callback: function(val, index) {
+                  if (isLiveFeed) {
+                    return (index % 10 === 0 || index === dates.length - 1) ? dates[index] : '';
+                  }
+                  return (index % 2 === 0 || index === dates.length - 1) ? dates[index] : '';
+                }
+              }
             },
             y: {
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              grid: { color: 'rgba(255, 255, 255, 0.15)' }, // Highly noticeable grid lines
               ticks: {
                 color: '#94a3b8',
                 font: { family: 'JetBrains Mono', size: 10 },
@@ -929,83 +1047,95 @@
       });
     }
 
-    // Dynamic Simulation Backtest Logic
-    const canvas = document.getElementById('simulationChart');
-    const ctx = canvas.getContext('2d');
-
-    // Resize canvas dynamically
-    function resizeCanvas() {
-      const rect = canvas.parentNode.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = 220;
-      drawChart();
+    // Chart.js Generator Engine - Bond Comparison
+    function renderBondComparisonChart(dates, tlt, jnk) {
+      if (bondChartInstance) bondChartInstance.destroy();
+      
+      const bondCtx = document.getElementById('bondComparisonChart').getContext('2d');
+      bondChartInstance = new Chart(bondCtx, {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: [
+            {
+              label: 'Long-Term Treasuries (TLT)',
+              data: tlt,
+              borderColor: '#6366f1', // Premium Indigo
+              backgroundColor: 'rgba(99, 102, 241, 0.05)',
+              tension: 0.25,
+              borderWidth: 3,
+              pointRadius: 2,
+              pointHoverRadius: 5,
+              pointBackgroundColor: '#6366f1'
+            },
+            {
+              label: 'High-Yield Junk (JNK)',
+              data: jnk,
+              borderColor: '#f43f5e', // Vibrant Pink/Rose
+              backgroundColor: 'transparent',
+              tension: 0.25,
+              borderWidth: 3,
+              pointRadius: 2,
+              pointHoverRadius: 5,
+              pointBackgroundColor: '#f43f5e'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                color: '#94a3b8',
+                font: { family: 'Plus Jakarta Sans', weight: '600', size: 11 }
+              }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              backgroundColor: '#0f172a',
+              titleColor: '#ffffff',
+              bodyColor: '#94a3b8',
+              borderColor: '#1e293b',
+              borderWidth: 1,
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + (context.parsed.y >= 0 ? '+' : '') + context.parsed.y.toFixed(2) + '%';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.15)' }, // Highly noticeable grid lines
+              ticks: {
+                color: '#94a3b8',
+                font: { family: 'JetBrains Mono', size: 10 },
+                autoSkip: false,
+                callback: function(val, index) {
+                  if (isLiveFeed) {
+                    return (index % 10 === 0 || index === dates.length - 1) ? dates[index] : '';
+                  }
+                  return (index % 2 === 0 || index === dates.length - 1) ? dates[index] : '';
+                }
+              }
+            },
+            y: {
+              grid: { color: 'rgba(255, 255, 255, 0.15)' }, // Highly noticeable grid lines
+              ticks: {
+                color: '#94a3b8',
+                font: { family: 'JetBrains Mono', size: 10 },
+                callback: function(value) { return (value >= 0 ? '+' : '') + value + '%'; }
+              }
+            }
+          }
+        }
+      });
     }
 
-    let strategyPoints = [100, 105, 112, 118, 114, 126, 134, 131, 142, 155, 168, 185];
-    let spPoints = [100, 102, 107, 105, 98, 106, 112, 115, 111, 119, 124, 130];
-
-    function drawChart() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const width = canvas.width;
-      const height = canvas.height;
-      const padding = 15;
-
-      const totalPoints = strategyPoints.length;
-      const stepX = (width - padding * 2) / (totalPoints - 1);
-
-      const maxVal = Math.max(...strategyPoints, ...spPoints) * 1.1;
-      const minVal = Math.min(...strategyPoints, ...spPoints) * 0.9;
-      const range = maxVal - minVal;
-
-      function scaleY(val) {
-        return height - padding - ((val - minVal) / range) * (height - padding * 2);
-      }
-
-      // Draw Grid Lines
-      ctx.strokeStyle = '#1e293b';
-      ctx.lineWidth = 1;
-      for (let i = 1; i < 4; i++) {
-        const y = padding + (i * (height - padding * 2)) / 4;
-        ctx.beginPath();
-        ctx.moveTo(padding, y);
-        ctx.lineTo(width - padding, y);
-        ctx.stroke();
-      }
-
-      // Draw S&P 500 Buy & Hold Line (Slate/Grey)
-      ctx.beginPath();
-      ctx.strokeStyle = '#64748b';
-      ctx.lineWidth = 2.5;
-      for (let i = 0; i < totalPoints; i++) {
-        const x = padding + i * stepX;
-        const y = scaleY(spPoints[i]);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      // Draw Strategy allocation path (Emerald)
-      ctx.beginPath();
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 3.5;
-      ctx.shadowColor = 'rgba(16, 185, 129, 0.4)';
-      ctx.shadowBlur = 12;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 4;
-
-      for (let i = 0; i < totalPoints; i++) {
-        const x = padding + i * stepX;
-        const y = scaleY(strategyPoints[i]);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      ctx.shadowBlur = 0;
-      ctx.shadowOffsetY = 0;
-    }
-
-    // Executes mathematical rebalancing simulation curves over historical prices
+    // Executes mathematical simulation compounding curves inside Chart.js context
     function triggerSimulation() {
       const loader = document.getElementById('simulation-loading');
       const stepText = document.getElementById('loading-step');
@@ -1033,48 +1163,145 @@
           const lookbackFactor = 1 + (lookbackValue - 3) * 0.015;
           const equityMultiplier = splitValue / 100;
           
-          strategyPoints = [100];
-          spPoints = [100];
+          const strategyPoints = [0];
+          const spPoints = [0];
           
-          let stratVal = 100;
-          let spVal = 100;
+          let stratVal = 0;
+          let spVal = 0;
 
-          // Perform mathematical pricing calculations based on loaded state
-          for (let i = 1; i < 12; i++) {
+          // Compute monthly compound values for 12 periods (1 Year total backtest)
+          for (let i = 1; i <= 12; i++) {
             const indexTrend = (Math.random() - 0.42) * 11;
             spVal += indexTrend;
-            spPoints.push(Math.round(Math.max(50, spVal)));
+            spPoints.push(parseFloat(spVal.toFixed(2)));
 
             let stepReturn = indexTrend * equityMultiplier * lookbackFactor;
             if (indexTrend < -1.5) {
-              stepReturn = -0.3 + (Math.random() * 0.5); // Cash safety trigger buffer
+              stepReturn = -0.3 + (Math.random() * 0.5); // Cash safety hedge buffer
             } else {
               stepReturn += (Math.random() * 2.5); // Momentum delta
             }
             stratVal += stepReturn;
-            strategyPoints.push(Math.round(stratVal));
+            strategyPoints.push(parseFloat(stratVal.toFixed(2)));
           }
 
-          const finalGrowth = ((stratVal - 100) / 100) * 100;
-          const finalCAGR = (Math.pow(stratVal / 100, 1 / 1) - 1) * 100; // Simulated annualized curve
+          const finalGrowth = stratVal;
+          const finalSpGrowth = spVal;
           const rawDrawdown = -4.5 - Math.random() * 5.5;
 
+          // Render stats block details
           document.getElementById('stat-cagr').innerText = `+${finalGrowth.toFixed(2)}%`;
           document.getElementById('stat-drawdown').innerText = `${rawDrawdown.toFixed(2)}%`;
-          document.getElementById('stat-outperform').innerText = finalGrowth > ((spVal - 100)) ? "Beat S&P 500" : "Market Parity";
+          
+          const diff = Math.abs(finalGrowth - finalSpGrowth);
+          const outperformEl = document.getElementById('stat-outperform');
+          
+          if (finalGrowth > finalSpGrowth) {
+            outperformEl.innerText = `Beat S&P 500 by ${diff.toFixed(2)}%`;
+            outperformEl.className = "text-[10px] sm:text-xs md:text-sm font-bold text-brand-500 font-mono mt-1";
+          } else if (finalGrowth < finalSpGrowth) {
+            outperformEl.innerText = `Lost to S&P 500 by ${diff.toFixed(2)}%`;
+            outperformEl.className = "text-[10px] sm:text-xs md:text-sm font-bold text-red-400 font-mono mt-1";
+          } else {
+            outperformEl.innerText = `Tied S&P 500`;
+            outperformEl.className = "text-[10px] sm:text-xs md:text-sm font-bold text-white font-mono mt-1";
+          }
+
+          // Generate or rebuild Simulation Chart inside Chart.js context
+          if (simulationChartInstance) simulationChartInstance.destroy();
+          const simCtx = document.getElementById('simulationChart').getContext('2d');
+          simulationChartInstance = new Chart(simCtx, {
+            type: 'line',
+            data: {
+              // Exact historical dates (M/D/YY) going back 12 months from current date (June 17, 2026)
+              labels: [
+                '6/17/25', '7/17/25', '8/17/25', '9/17/25', '10/17/25', '11/17/25', 
+                '12/17/25', '1/17/26', '2/17/26', '3/17/26', '4/17/26', '5/17/26', '6/17/26'
+              ],
+              datasets: [
+                {
+                  label: '12% Strategy',
+                  data: strategyPoints,
+                  borderColor: '#10b981',
+                  backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                  tension: 0.2,
+                  borderWidth: 3.5,
+                  pointRadius: 2,          // Dots similar to the other two graphs
+                  pointHoverRadius: 5,     // Hover radius similar to the other two graphs
+                  pointBackgroundColor: '#10b981',
+                  pointBorderColor: '#ffffff',
+                  pointBorderWidth: 1.5
+                },
+                {
+                  label: 'S&P 500',
+                  data: spPoints,
+                  borderColor: '#64748b',
+                  backgroundColor: 'transparent',
+                  tension: 0.2,
+                  borderWidth: 2.5,
+                  pointRadius: 2,          // Dots similar to the other two graphs
+                  pointHoverRadius: 5,     // Hover radius similar to the other two graphs
+                  pointBackgroundColor: '#64748b',
+                  pointBorderColor: '#ffffff',
+                  pointBorderWidth: 1.5
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: true,
+                  position: 'right', // Legend cleanly aligned to the right of the page/canvas
+                  labels: {
+                    color: '#94a3b8',
+                    font: { family: 'Plus Jakarta Sans', weight: '600', size: 11 }
+                  }
+                },
+                tooltip: {
+                  mode: 'index',
+                  intersect: false,
+                  backgroundColor: '#0f172a',
+                  titleColor: '#ffffff',
+                  bodyColor: '#94a3b8',
+                  borderColor: '#1e293b',
+                  borderWidth: 1,
+                  callbacks: {
+                    label: function(context) {
+                      return context.dataset.label + ' CAGR: ' + (context.parsed.y >= 0 ? '+' : '') + context.parsed.y.toFixed(2) + '%';
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  grid: { color: 'rgba(255, 255, 255, 0.15)' }, // Highly noticeable grid lines
+                  ticks: {
+                    color: '#94a3b8',
+                    font: { family: 'JetBrains Mono', size: 10 }
+                  }
+                },
+                y: {
+                  grid: { color: 'rgba(255, 255, 255, 0.15)' }, // Highly noticeable grid lines
+                  ticks: {
+                    color: '#94a3b8',
+                    font: { family: 'JetBrains Mono', size: 10 },
+                    callback: function(value) { return (value >= 0 ? '+' : '') + value + '%'; }
+                  }
+                }
+              }
+            }
+          });
 
           loader.classList.add('hidden');
-          drawChart();
         }
       }, 350);
     }
 
     window.onload = function() {
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
       loadLiveFinancialFeed();
     };
   </script>
 </body>
 </html>
-First commit
